@@ -3,9 +3,9 @@ let getCalled = false;
 
 const existingCalls = [];
 
-const names = ["Vincent", "Scott", "Ben"];
+const names = ["Vincent", "Scott", "Ben", "Johnson", "Tony", "Harris", "Jack"];
 
-const person = names[getRndInteger(0, 3)];
+const person = names[getRndInteger(0, 7)];
 
 const { RTCPeerConnection, RTCSessionDescription } = window;
 
@@ -180,6 +180,6 @@ setTimeout(function test(){
   chat.setAttribute('width', "100%");
   chat.setAttribute("scrolling", "no")
   chat.setAttribute("frameBorder", "0")
-  chat.setAttribute("style", "margin-top: -1150px;")
+  chat.setAttribute("style", "margin-top: -1240px;")
   document.getElementById("chat-host").appendChild(chat);
 }, 1000);

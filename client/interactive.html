@@ -16,28 +16,37 @@
 <body style="margin:0 ; padding:0">
 
         <canvas id="ctx" width="826" height="555"></canvas>
-        
-        <div id="chat-text" class="intext" style="width:500px;height:500px;overflow-y:scroll;">
-            <h2 style="margin:0;">Chat:</h2>
+
+        <div id="chat-text" class="intext" style="width:500px;height:400px;overflow-y:scroll; background:white">
+            <h2 style="margin:0;"></h2>
         </div>
 
         <form id="chat-form">
-            <input id="chat-input" class="chatbox" type="text" style="height:25px;width:190px"></input>
+            <input id="chat-input" class="chatbox" type="text" style="height:30px;width:800px"></input>
         </form>
         <style>
             .intext{
+                padding:24px;
                 font-family: Space Mono;
                 font-style: normal;
                 font-weight: bold;
                 font-size: 20px;
-                color: white;
+                color: #FFA21D;
+                border-radius: 20px;
             }
 
             .chatbox{
+                padding:8px;
+                margin-top:32px;
                 font-family: Space Mono;
                 font-style: normal;
                 font-weight: bold;
                 font-size: 17px;
+                background:white;
+                border:none;
+                color:#FFA21D;
+                border-radius: 10px;
+                outline: none;
             }
         </style>
         <script src="/socket.io/socket.io.js"></script>
@@ -66,7 +75,7 @@
                     }
                 });
             }, 1000)
-            
+
 
             socket.on('addToChat',function(data){
                 chatText.innerHTML += '<div>' + data + '</div>';

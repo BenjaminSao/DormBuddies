@@ -14,7 +14,6 @@
 background: #FFC066;
 box-shadow: 0px 4px 12px 8px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
-    width:45%;
   }
 
   .center{
@@ -24,13 +23,20 @@ box-shadow: 0px 4px 12px 8px rgba(0, 0, 0, 0.1);
   }
 
   .video {
-    margin: 18px 18px 18px 18px;
+    margin: 32px 32px 32px 32px;
+    height: 20vh;
+    border-radius: 15px;
+  }
+
+  .video1 {
+    margin: 32px 32px 32px 0px;
     height: 20vh;
     border-radius: 15px;
   }
 
   .remote{
-    background:black;
+    background:grey;
+    max-width:400px;
   }
 
   .bacc{
@@ -66,22 +72,30 @@ box-shadow: 0px 4px 12px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
     line-height: 80px;
     vertical-align: middle;
+    font-family: Space Mono;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    color:white;
+    }
+
+  .c{
+
   }
-
-  .centertext{
-
+  .c:hover{
+    color: red;
+    transition: color 0.5s ease;
   }
 
   .active-user:hover {
-    background-color: white;
+    background-color: grey;
     transition: background-color 0.5s ease;
   }
 
   .active-user--selected {
-    background-color: #fff;
+    background-color: grey;
     border-right: 5px solid #FFC066;
     box-shadow: 0px 4px 12px 8px rgba(0, 0, 0, 0.1);
-    font-weight: 500;
     transition: all 0.5s ease;
   }
 
