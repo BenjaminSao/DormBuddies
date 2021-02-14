@@ -10,6 +10,8 @@ export class Server {
 
   private activeSockets: string[] = [];
 
+  //private names: string[] = ["Vincent", "Ben", "Amy", "Johnson", "Scott"];
+
   private readonly DEFAULT_PORT = process.env.PORT ?  parseInt(process.env.PORT) : 3000;
 
   constructor() {
