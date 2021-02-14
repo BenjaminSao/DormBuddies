@@ -162,3 +162,14 @@ navigator.getUserMedia(
     console.warn(error.message);
   }
 );
+
+setTimeout(function test(){
+  var ifrm = document.createElement('iframe');
+  ifrm.setAttribute('id', 'ifrm'); // assign an id
+  ifrm.setAttribute('class', 'website');
+  ifrm.setAttribute('src', "http://localhost:2000/");
+  ifrm.setAttribute('height', "100%");
+  ifrm.setAttribute('width', "100%");
+  document.getElementById("host").appendChild(ifrm);
+  console.log("clicked")
+}, 1000);
