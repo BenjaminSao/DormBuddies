@@ -1,5 +1,5 @@
   .background{
-    background-color: #FFEFD8;
+    background-color: #F5EED8;
   }
 
   .tester{
@@ -11,8 +11,7 @@
   }
 
   .topbar{
-    background: linear-gradient(270deg, #FFBC5C 0%, #FFB449 100%);
-    box-shadow: 0px 4px 12px 8px rgba(0, 0, 0, 0.1);
+background: #79a3b1;
     border-radius: 20px;
     width:90%;
   }
@@ -34,8 +33,7 @@
   }
 
   .centercont{
-    background: linear-gradient(270deg, #FFBC5C 0%, #FFB449 100%);
-    box-shadow: 0px 4px 12px 8px rgba(0, 0, 0, 0.1);
+background: #79a3b1;
     border-radius: 20px;
     width:90%;
   }
@@ -89,8 +87,7 @@
     max-width:1000px;
     width:60%;
     height:80%;
-    background: linear-gradient(270deg, #FFBC5C 0%, #FFB449 100%);
-    box-shadow: 0px 4px 12px 8px rgba(0, 0, 0, 0.1);
+background: #79a3b1;
     border-radius: 32px;
   }
 
