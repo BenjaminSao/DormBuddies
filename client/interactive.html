@@ -13,16 +13,16 @@
     />
     <link rel="stylesheet" href="index.css">
 </head>
-<body style="margin:0 ; padding:0">
+<body style="margin:0 ; padding:0;">
 
         <canvas id="ctx" width="826" height="555"></canvas>
         
-        <div id="chat-text" class="intext" style="width:500px;height:500px;overflow-y:scroll;">
+        <div id="chat-text" class="intext" style="position:absolute;top:20px;left:826px;width:500px;height:500px;overflow-y:scroll;">
             <h2 style="margin:0;">Chat:</h2>
         </div>
 
         <form id="chat-form">
-            <input id="chat-input" class="chatbox" type="text" style="height:25px;width:190px"></input>
+            <input id="chat-input" class="chatbox" type="text" style="position:absolute;top:530px;left:826px;height:25px;width:190px"></input>
         </form>
         <style>
             .intext{
@@ -48,7 +48,7 @@
             var canvas = document.getElementById("ctx")
             var ctx = canvas.getContext("2d");
 
-            ctx.font = '30px Arial';
+            ctx.font = '70px Arial';
             // var background = document.getElementById("room");
             // ctx.globalCompositeOperation = 'destination-over'
             // ctx.drawImage(background,0,0);
@@ -60,8 +60,8 @@
             // var socket = io.connect("http://localhost:2000", 
             // { upgrade: false, transports: ['websocket'], reconnection: true, forceNew: false});
             // socket.once('connect', socketConn => {
-                socket.on('newPositions',function(data){
-                ctx.clearRect(0,0,826,555);
+            socket.on('newPositions',function(data){
+                ctx.clearRect(0,0,900,555);
                 for(var i = 0 ; i < data.player.length; i++){
                     ctx.fillText(data.player[i].id,data.player[i].x,data.player[i].y);
                 }

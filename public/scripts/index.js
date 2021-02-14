@@ -82,11 +82,6 @@ function updateUserList(socketIds) {
 }
 
 var socket = io.connect();
-// var socket = io.connect("http://localhost:3000", 
-            // {transports: ['websocket'],  forceNode: true});
-            // socket.once('connect', socketConn => {
-
-            // }); 
 
 socket.on("update-user-list", ({ users }) => {
   updateUserList(users);
@@ -103,7 +98,7 @@ socket.on("remove-user", ({ socketId }) => {
 socket.on("call-made", async data => {
   if (getCalled) {
     const confirmed = confirm(
-      `${names[getRndInteger(0, 3)]} wants to call you. Do you want to accept this call?`
+      `Your dorm buddy wants to call you. Do you want to accept this call?`
     );
 
     if (!confirmed) {
@@ -175,14 +170,4 @@ setTimeout(function test(){
   ifrm.setAttribute("scrolling", "no")
   ifrm.setAttribute("frameBorder", "0")
   document.getElementById("host").appendChild(ifrm);
-
-  var chat = document.createElement('iframe');
-  chat.setAttribute('id', 'chat-frame'); // assign an id
-  chat.setAttribute('src', "http://localhost:2000/");
-  chat.setAttribute('height', "200%");
-  chat.setAttribute('width', "100%");
-  chat.setAttribute("scrolling", "no")
-  chat.setAttribute("frameBorder", "0")
-  chat.setAttribute("style", "margin-top: -1240px;")
-  document.getElementById("chat-host").appendChild(chat);
 }, 1000);

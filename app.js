@@ -84,7 +84,7 @@ Player.onDisconnect = function(socket){
 	delete Player.list[socket.id];
 }
 
-var maxX = 800;
+var maxX = 900;
 var maxY = 555;
 Player.update = function(){
 	var pack = [];
