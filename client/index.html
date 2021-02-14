@@ -9,7 +9,7 @@
 </head>
 <body>
 
-        <!-- <img id="room" src="https://cdn.discordapp.com/attachments/806948230230966292/810299882991648828/form2.png" alt="" width="500" height="500" > -->
+        <img id="room" src="https://cdn.discordapp.com/attachments/806948230230966292/810299882991648828/form2.png" alt="" width="500" height="500" >
         <canvas id="ctx" width="500" height="500" style="border: 1px solid #000000;"></canvas>
  
         <div id="chat-text" style="width:500px;height:100px;overflow-y:scroll">
@@ -25,11 +25,17 @@
             var chatText = document.getElementById('chat-text');
             var chatInput = document.getElementById('chat-input');
             var chatForm = document.getElementById('chat-form');
-            var ctx = document.getElementById("ctx").getContext("2d");
+            var canvas = document.getElementById("ctx")
+            var ctx = canvas.getContext("2d");
+            
             ctx.font = '30px Arial';
-            // var background = getElementById("room");
+            // var background = document.getElementById("room");
+            // ctx.globalCompositeOperation = 'destination-over'
             // ctx.drawImage(background,0,0);   
-         
+            
+            // ctx.fillStyle = "blue";
+            // ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
             var socket = io();
          
             socket.on('newPositions',function(data){
