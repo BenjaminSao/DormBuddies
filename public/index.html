@@ -4,7 +4,7 @@
    <meta charset="UTF-8" />
    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-   <title>Dogeller</title>
+   <title>Dorm Buddy</title>
    <link
      href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700&display=swap"
      rel="stylesheet"
@@ -16,95 +16,48 @@
  <body class="background">
    <div class="container-fluid" style="height: 100vh;">
 
-     <div class="row justify-content-center">
-       <div class="row topbar topback justify-content-center align-self-center">
-           <video autoplay muted class="local-video" id="local-video"></video>
-           <video autoplay class="remote-video" id="remote-video"></video>
+     <!-- video bar -->
+     <div class="row justify-content-center d-flex align-items-center" style="height:30vh;">
+       <div class="row topbar justify-content-center align-self-center">
+           <video autoplay muted class="video" id="local-video"></video>
+           <video autoplay class="video remote" id="remote-video"></video>
        </div>
      </div>
 
-     <div class="row tester justify-content-center">
-       <div class="row tester1 topbar topback justify-content-center align-self-center">
-         <canvas id="ctx" width="500" height="500" style="border: 1px solid #000000;"></canvas>
+     <!-- center content -->
+     <div class="row justify-content-center" style="height:55vh;">
+       <div class="row centercont justify-content-center tester1" style="height:55vh;">
+
+         <!-- active users -->
+         <div class="col-3" style="height:55vh; padding-left:24px;">
+           <!-- logo -->
+           <div class="row justify-content-center" style="height:30%">
+             <img class="mx-auto d-block align-self-center" src="templogo.png" style="height:70%;"></img>
+           </div>
+           <!-- user list -->
+           <div class="row noover" id="active-user-container" style="height:70%">
+           </div>
+         </div>
+
+         <!-- movement -->
+         <div class="col-6" style="height:100%;">
+           <img class="mx-auto d-block" src="back.png" style="width:100%; height:100%"></img>
+         </div>
+
+         <!-- chat -->
+         <div class="col-3">
+         </div>
        </div>
      </div>
 
-
-
-     <div class="content-container">
-       <div class="active-users-panel" id="active-user-container">
-         <h3 class="panel-title">Active Users:</h3>
+       <div class="row tester justify-content-center" style="height:20vh;">
+         <div class="row botcont justify-content-center align-self-center" style="height:100px">
+         </div>
        </div>
-       <div class="video-chat-container">
-         <h2 class="talk-info" id="talking-with-info">
-           Select active user on the left menu.
-         </h2>
-       </div>
+
      </div>
-   </div>
-   <script src="/socket.io/socket.io.js"></script>
-   <script>
-       var chatText = document.getElementById('chat-text');
-       var chatInput = document.getElementById('chat-input');
-       var chatForm = document.getElementById('chat-form');
-       var ctx = document.getElementById("ctx").getContext("2d");
-       ctx.font = '30px Arial';
-       // var background = getElementById("room");
-       // ctx.drawImage(background,0,0);
-
-       var socket = io();
-
-       socket.on('newPositions',function(data){
-           ctx.clearRect(0,0,500,500);
-           for(var i = 0 ; i < data.player.length; i++){
-               ctx.fillText("A",data.player[i].x,data.player[i].y);
-           }
-
-       });
-
-       socket.on('addToChat',function(data){
-           chatText.innerHTML += '<div>' + data + '</div>';
-       });
-       socket.on('evalAnswer',function(data){
-           console.log(data);
-       });
-
-
-       chatForm.onsubmit = function(e){
-           e.preventDefault();
-           if(chatInput.value[0] === '/')
-               socket.emit('evalServer',chatInput.value.slice(1));
-           else
-               socket.emit('sendMsgToServer',chatInput.value);
-           chatInput.value = '';
-       }
-
-       document.onkeydown = function(event){
-           if(event.keyCode === 68)	//d
-               socket.emit('keyPress',{inputId:'right',state:true});
-           else if(event.keyCode === 83)	//s
-               socket.emit('keyPress',{inputId:'down',state:true});
-           else if(event.keyCode === 65) //a
-               socket.emit('keyPress',{inputId:'left',state:true});
-           else if(event.keyCode === 87) // w
-               socket.emit('keyPress',{inputId:'up',state:true});
-
-       }
-       document.onkeyup = function(event){
-           if(event.keyCode === 68)	//d
-               socket.emit('keyPress',{inputId:'right',state:false});
-           else if(event.keyCode === 83)	//s
-               socket.emit('keyPress',{inputId:'down',state:false});
-           else if(event.keyCode === 65) //a
-               socket.emit('keyPress',{inputId:'left',state:false});
-           else if(event.keyCode === 87) // w
-               socket.emit('keyPress',{inputId:'up',state:false});
-       }
-
-   </script>
 
    <script src="./scripts/index.js"></script>
-   <script src="../app.js"></script>
    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
