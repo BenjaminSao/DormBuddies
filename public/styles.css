@@ -32,6 +32,13 @@ background: #79a3b1;
     background:black;
   }
 
+  .bacc{
+    background-image: url(back.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: black;
+  }
+
   .centercont{
 background: #79a3b1;
     border-radius: 20px;

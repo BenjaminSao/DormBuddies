@@ -170,6 +170,7 @@ setTimeout(function test(){
   ifrm.setAttribute('height', "100%");
   ifrm.setAttribute('width', "100%");
   ifrm.setAttribute("scrolling", "no")
+  ifrm.setAttribute("frameBorder", "0")
   document.getElementById("host").appendChild(ifrm);
   console.log("clicked")
 }, 1000);
