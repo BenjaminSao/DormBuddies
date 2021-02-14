@@ -11,10 +11,16 @@
   }
 
   .topbar{
-    background: linear-gradient(90deg, #FFAD37 0%, #FFBC5C 100%);
+    background: linear-gradient(270deg, #FFBC5C 0%, #FFB449 100%);
     box-shadow: 0px 4px 12px 8px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
     width:90%;
+  }
+
+  .center{
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
   .video {
@@ -28,10 +34,18 @@
   }
 
   .centercont{
-    background: linear-gradient(90deg, #FFAD37 0%, #FFBC5C 100%);
+    background: linear-gradient(270deg, #FFBC5C 0%, #FFB449 100%);
     box-shadow: 0px 4px 12px 8px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
     width:90%;
+  }
+
+  .intext{
+    font-family: Space Mono;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    color: white;
   }
 
   .active-user {
@@ -45,6 +59,10 @@
     text-align: center;
     line-height: 80px;
     vertical-align: middle;
+  }
+
+  .centertext{
+
   }
 
   .active-user:hover {
@@ -68,11 +86,12 @@
   }
 
   .botcont{
-    background: linear-gradient(90deg, #FFAD37 0%, #FFBC5C 100%);
-    box-shadow: 0px 4px 12px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 20px;
+    max-width:1000px;
     width:60%;
     height:80%;
+    background: linear-gradient(270deg, #FFBC5C 0%, #FFB449 100%);
+    box-shadow: 0px 4px 12px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 32px;
   }
 
 
