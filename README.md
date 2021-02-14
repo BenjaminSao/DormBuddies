@@ -2,6 +2,8 @@
 
 ## A web app to help current and prospective university students in building life-long friends.
 
+![](Assets/dorm.gif)
+
 With the way university is structured right now in its virtual setting, it is hard to connect with others from your university. This is especially true for students who are starting university this year. So how do student make friends? What is the best possible way to connect with other students? Through our personal experiences we have found that living in a dorm with other students is a great way in making friends that you will be with throughout university and beyond. DormBuddies tries to simulate the dorm experience virtually to connect people in a virtual world.
 
 ## How does it work?
