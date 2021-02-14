@@ -3,6 +3,10 @@ let getCalled = false;
 
 const existingCalls = [];
 
+const names = ["Vincent", "Scott", "Ben"];
+
+const person = names[getRndInteger(0, 3)];
+
 const { RTCPeerConnection, RTCSessionDescription } = window;
 
 const peerConnection = new RTCPeerConnection({
@@ -17,6 +21,10 @@ const peerConnection = new RTCPeerConnection({
         },
     ]}
     );
+
+function getRndInteger(min, max) {
+  return Math.floor(Math.random() * (max - min) ) + min;
+}
 
 function unselectUsersFromList() {
   const alreadySelectedUser = document.querySelectorAll(
@@ -36,7 +44,8 @@ function createUserItemContainer(socketId) {
   userContainerEl.setAttribute("class", "active-user");
   userContainerEl.setAttribute("id", socketId);
   usernameEl.setAttribute("class", "username");
-  usernameEl.innerHTML = `Socket: ${socketId}`;
+  usernameEl.innerHTML = `${names[getRndInteger(0, 3)]} <br> <p style="font-size:0px">${socketId}</p>`;
+
 
   userContainerEl.appendChild(usernameEl);
 
@@ -44,7 +53,7 @@ function createUserItemContainer(socketId) {
     unselectUsersFromList();
     userContainerEl.setAttribute("class", "active-user active-user--selected");
     const talkingWithInfo = document.getElementById("talking-with-info");
-    talkingWithInfo.innerHTML = `Talking with: "Socket: ${socketId}"`;
+    talkingWithInfo.innerHTML = `Talking with ${names[getRndInteger(0, 3)]}`;
     callUser(socketId);
   });
 
@@ -91,7 +100,7 @@ socket.on("remove-user", ({ socketId }) => {
 socket.on("call-made", async data => {
   if (getCalled) {
     const confirmed = confirm(
-      `User "Socket: ${data.socket}" wants to call you. Do accept this call?`
+      `${names[getRndInteger(0, 3)]} wants to call you. Do you want to accept this call?`
     );
 
     if (!confirmed) {
@@ -128,7 +137,7 @@ socket.on("answer-made", async data => {
 });
 
 socket.on("call-rejected", data => {
-  alert(`User: "Socket: ${data.socket}" rejected your call.`);
+  alert(`"${names[getRndInteger(0, 3)]} rejected your call.`);
   unselectUsersFromList();
 });
 
@@ -154,63 +163,13 @@ navigator.getUserMedia(
   }
 );
 
-// player + chat stuff
-var chatText = document.getElementById('chat-text');
-       var chatInput = document.getElementById('chat-input');
-       var chatForm = document.getElementById('chat-form');
-       var ctx = document.getElementById("ctx").getContext("2d");
-       ctx.font = '30px Arial';
-       // var background = getElementById("room");
-       // ctx.drawImage(background,0,0);
-
-       var socket = io();
-
-
-
-       chatForm.onsubmit = function(e){
-           e.preventDefault();
-           if(chatInput.value[0] === '/')
-               socket.emit('evalServer',chatInput.value.slice(1));
-           else
-               socket.emit('sendMsgToServer',chatInput.value);
-           chatInput.value = '';
-       }
-
-       document.onkeydown = function(event){
-           if(event.keyCode === 68)	//d
-               socket.emit('keyPress',{inputId:'right',state:true});
-           else if(event.keyCode === 83)	//s
-               socket.emit('keyPress',{inputId:'down',state:true});
-           else if(event.keyCode === 65) //a
-               socket.emit('keyPress',{inputId:'left',state:true});
-           else if(event.keyCode === 87) // w
-               socket.emit('keyPress',{inputId:'up',state:true});
-
-       }
-       document.onkeyup = function(event){
-           if(event.keyCode === 68)	//d
-               socket.emit('keyPress',{inputId:'right',state:false});
-           else if(event.keyCode === 83)	//s
-               socket.emit('keyPress',{inputId:'down',state:false});
-           else if(event.keyCode === 65) //a
-               socket.emit('keyPress',{inputId:'left',state:false});
-           else if(event.keyCode === 87) // w
-               socket.emit('keyPress',{inputId:'up',state:false});
-       }
-       
-socket.on('newPositions',function(data){
-  ctx.clearRect(0,0,500,500);
-  for(var i = 0 ; i < data.player.length; i++){
-      ctx.fillText("A",data.player[i].x,data.player[i].y);
-  }
-
-});
-
-socket.on('addToChat',function(data){
-  chatText.innerHTML += '<div>' + data + '</div>';
-});
-socket.on('evalAnswer',function(data){
-  console.log(data);
-});
-
-
+setTimeout(function test(){
+  var ifrm = document.createElement('iframe');
+  ifrm.setAttribute('id', 'ifrm'); // assign an id
+  ifrm.setAttribute('class', 'website');
+  ifrm.setAttribute('src', "http://localhost:2000/");
+  ifrm.setAttribute('height', "100%");
+  ifrm.setAttribute('width', "100%");
+  document.getElementById("host").appendChild(ifrm);
+  console.log("clicked")
+}, 1000);
