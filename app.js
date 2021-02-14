@@ -112,11 +112,15 @@ Player.update = function(){
 
 
 var DEBUG = true;
-
+const usernames = ["🙆", "👾", "👨‍💻", "🕺"]
 var io = require('socket.io')(serv,{});
 io.sockets.on('connection', function(socket){
-	socket.id = Math.random();
+	var keys = Object.keys(SOCKET_LIST);
+	var index = keys.length
+	// socket.id = usernames[index];
+	socket.id = Math.floor(10 * Math.random())
 	SOCKET_LIST[socket.id] = socket;
+	console.log(index)
 
 	Player.onConnect(socket);
 
@@ -125,9 +129,9 @@ io.sockets.on('connection', function(socket){
 		Player.onDisconnect(socket);
 	});
 	socket.on('sendMsgToServer',function(data){
-		var playerName = ("" + socket.id).slice(2,7);
+		// var playerName = ("" + socket.id).slice(2,7);
 		for(var i in SOCKET_LIST){
-			SOCKET_LIST[i].emit('addToChat',playerName + ': ' + data);
+			SOCKET_LIST[i].emit('addToChat',socket.id + ': ' + data);
 		}
 	});
 

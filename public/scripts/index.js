@@ -180,6 +180,6 @@ setTimeout(function test(){
   chat.setAttribute('width', "100%");
   chat.setAttribute("scrolling", "no")
   chat.setAttribute("frameBorder", "0")
-  chat.setAttribute("style", "margin-top: -550px;")
+  chat.setAttribute("style", "margin-top: -1150px;")
   document.getElementById("chat-host").appendChild(chat);
 }, 1000);
