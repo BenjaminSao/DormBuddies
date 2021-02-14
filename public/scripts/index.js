@@ -166,10 +166,10 @@ navigator.getUserMedia(
 setTimeout(function test(){
   var ifrm = document.createElement('iframe');
   ifrm.setAttribute('id', 'ifrm'); // assign an id
-  ifrm.setAttribute('class', 'col-6');
   ifrm.setAttribute('src', "http://localhost:2000/");
   ifrm.setAttribute('height', "100%");
   ifrm.setAttribute('width', "100%");
+  ifrm.setAttribute("scrolling", "no")
   document.getElementById("host").appendChild(ifrm);
   console.log("clicked")
 }, 1000);

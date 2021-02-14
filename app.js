@@ -3,7 +3,7 @@ var app = express();
 var serv = require('http').Server(app);
 
 app.get('/',function(req, res) {
-	res.sendFile(__dirname + '/client/index.html');
+	res.sendFile(__dirname + '/client/interactive.html');
 });
 app.use('/client',express.static(__dirname + '/client'));
 
@@ -83,6 +83,9 @@ Player.onConnect = function(socket){
 Player.onDisconnect = function(socket){
 	delete Player.list[socket.id];
 }
+
+var maxX = 800;
+var maxY = 555;
 Player.update = function(){
 	var pack = [];
 	for(var i in Player.list){
@@ -92,10 +95,10 @@ Player.update = function(){
             player.x = 0;
         else if(player.y < 20)
             player.y = 20;
-        else if(player.x > 481)
-            player.x = 481;
-        else if(player.y > 500)
-            player.y = 500;
+        else if(player.x > maxX)
+            player.x = maxX;
+        else if(player.y > maxY)
+            player.y = maxY;
 
         pack.push({
             x:player.x,
