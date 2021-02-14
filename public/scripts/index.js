@@ -52,8 +52,6 @@ function createUserItemContainer(socketId) {
   userContainerEl.addEventListener("click", () => {
     unselectUsersFromList();
     userContainerEl.setAttribute("class", "active-user active-user--selected");
-    const talkingWithInfo = document.getElementById("talking-with-info");
-    talkingWithInfo.innerHTML = `Talking with ${names[getRndInteger(0, 3)]}`;
     callUser(socketId);
   });
 
