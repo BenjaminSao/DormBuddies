@@ -44,7 +44,8 @@ function createUserItemContainer(socketId) {
   userContainerEl.setAttribute("class", "active-user");
   userContainerEl.setAttribute("id", socketId);
   usernameEl.setAttribute("class", "username");
-  usernameEl.innerHTML = `${this.person} <br> <p style="font-size:0px">${socketId}</p>`;
+  usernameEl.innerHTML = `${names[getRndInteger(0, 3)]} <br> <p style="font-size:0px">${socketId}</p>`;
+
 
   userContainerEl.appendChild(usernameEl);
 
@@ -52,7 +53,7 @@ function createUserItemContainer(socketId) {
     unselectUsersFromList();
     userContainerEl.setAttribute("class", "active-user active-user--selected");
     const talkingWithInfo = document.getElementById("talking-with-info");
-    talkingWithInfo.innerHTML = `Talking with ${this.person}`;
+    talkingWithInfo.innerHTML = `Talking with ${names[getRndInteger(0, 3)]}`;
     callUser(socketId);
   });
 
@@ -99,7 +100,7 @@ socket.on("remove-user", ({ socketId }) => {
 socket.on("call-made", async data => {
   if (getCalled) {
     const confirmed = confirm(
-      `${this.person} wants to call you. Do accept this call?`
+      `${names[getRndInteger(0, 3)]} wants to call you. Do you want to accept this call?`
     );
 
     if (!confirmed) {
@@ -136,7 +137,7 @@ socket.on("answer-made", async data => {
 });
 
 socket.on("call-rejected", data => {
-  alert(`"${this.person} rejected your call.`);
+  alert(`"${names[getRndInteger(0, 3)]} rejected your call.`);
   unselectUsersFromList();
 });
 
