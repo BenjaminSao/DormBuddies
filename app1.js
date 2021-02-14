@@ -7,7 +7,7 @@ app.get('/',function(req, res) {
 });
 app.use('/',express.static(__dirname + '/'));
  
-serv.listen(2000);
+serv.listen(3000);
 console.log("Server started.");
  
 // var SOCKET_LIST = {};
