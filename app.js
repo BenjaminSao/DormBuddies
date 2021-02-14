@@ -103,7 +103,7 @@ Player.update = function(){
         pack.push({
             x:player.x,
             y:player.y,
-            number:player.number
+            id:player.id
         });
 	}
 	return pack;
@@ -117,8 +117,8 @@ var io = require('socket.io')(serv,{});
 io.sockets.on('connection', function(socket){
 	var keys = Object.keys(SOCKET_LIST);
 	var index = keys.length
-	// socket.id = usernames[index];
-	socket.id = Math.floor(10 * Math.random())
+	socket.id = usernames[index];
+	// socket.id = Math.floor(10 * Math.random())
 	SOCKET_LIST[socket.id] = socket;
 	console.log(index)
 

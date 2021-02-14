@@ -16,37 +16,28 @@
 <body style="margin:0 ; padding:0">
 
         <canvas id="ctx" width="826" height="555"></canvas>
-
-        <div id="chat-text" class="intext" style="width:500px;height:400px;overflow-y:scroll; background:white">
-            <h2 style="margin:0;"></h2>
+        
+        <div id="chat-text" class="intext" style="width:500px;height:500px;overflow-y:scroll;">
+            <h2 style="margin:0;">Chat:</h2>
         </div>
 
         <form id="chat-form">
-            <input id="chat-input" class="chatbox" type="text" style="height:30px;width:800px"></input>
+            <input id="chat-input" class="chatbox" type="text" style="height:25px;width:190px"></input>
         </form>
         <style>
             .intext{
-                padding:24px;
                 font-family: Space Mono;
                 font-style: normal;
                 font-weight: bold;
                 font-size: 20px;
-                color: #FFA21D;
-                border-radius: 20px;
+                color: white;
             }
 
             .chatbox{
-                padding:8px;
-                margin-top:32px;
                 font-family: Space Mono;
                 font-style: normal;
                 font-weight: bold;
                 font-size: 17px;
-                background:white;
-                border:none;
-                color:#FFA21D;
-                border-radius: 10px;
-                outline: none;
             }
         </style>
         <script src="/socket.io/socket.io.js"></script>
@@ -66,16 +57,16 @@
             // ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             var socket = io();
-
-            setTimeout(function(){
+            // var socket = io.connect("http://localhost:2000", 
+            // { upgrade: false, transports: ['websocket'], reconnection: true, forceNew: false});
+            // socket.once('connect', socketConn => {
                 socket.on('newPositions',function(data){
-                    ctx.clearRect(0,0,826,555);
-                    for(var i = 0 ; i < data.player.length; i++){
-                        ctx.fillText(data.player[i].id,data.player[i].x,data.player[i].y);
-                    }
-                });
-            }, 1000)
-
+                ctx.clearRect(0,0,826,555);
+                for(var i = 0 ; i < data.player.length; i++){
+                    ctx.fillText(data.player[i].id,data.player[i].x,data.player[i].y);
+                }
+            });
+            
 
             socket.on('addToChat',function(data){
                 chatText.innerHTML += '<div>' + data + '</div>';
@@ -83,6 +74,9 @@
             socket.on('evalAnswer',function(data){
                 console.log(data);
             });
+            // }); 
+
+            
 
 
             chatForm.onsubmit = function(e){
@@ -117,8 +111,6 @@
             }
 
         </script>
-
-
 
 </body>
 </html>

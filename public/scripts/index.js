@@ -83,7 +83,12 @@ function updateUserList(socketIds) {
   });
 }
 
-const socket = io.connect();
+var socket = io.connect();
+// var socket = io.connect("http://localhost:3000", 
+            // {transports: ['websocket'],  forceNode: true});
+            // socket.once('connect', socketConn => {
+
+            // }); 
 
 socket.on("update-user-list", ({ users }) => {
   updateUserList(users);
