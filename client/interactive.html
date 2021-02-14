@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="margin:0 ; padding:0">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +7,9 @@
     <title>Document</title>
     <link rel="stylesheet" href="index.css">
 </head>
-<body>
+<body style="margin:0 ; padding:0">
 
-        <canvas id="ctx" width="500" height="500" style="border: 1px solid #000000;"></canvas>
+        <canvas id="ctx" width="1440" height="900" style="border: 1px solid #000000;" scrolling="no"></canvas>
  
         <div id="chat-text" style="width:500px;height:100px;overflow-y:scroll">
             <div>Hello!</div>
@@ -18,14 +18,14 @@
         <form id="chat-form">
             <input id="chat-input" type="text" style="width:500px"></input>
         </form>
-        <style>
+        <!-- <style>
                 #ctx{
                     background-image:    url(back.png);
                     background-size:     cover;
                     background-repeat:   no-repeat;
                     background-position: center center;
                 }
-                </style>
+                </style> -->
         <script src="/socket.io/socket.io.js"></script>
         <script>
             var chatText = document.getElementById('chat-text');
