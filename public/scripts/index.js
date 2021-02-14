@@ -172,5 +172,14 @@ setTimeout(function test(){
   ifrm.setAttribute("scrolling", "no")
   ifrm.setAttribute("frameBorder", "0")
   document.getElementById("host").appendChild(ifrm);
-  console.log("clicked")
+
+  var chat = document.createElement('iframe');
+  chat.setAttribute('id', 'chat-frame'); // assign an id
+  chat.setAttribute('src', "http://localhost:2000/");
+  chat.setAttribute('height', "200%");
+  chat.setAttribute('width', "100%");
+  chat.setAttribute("scrolling", "no")
+  chat.setAttribute("frameBorder", "0")
+  chat.setAttribute("style", "margin-top: -550px;")
+  document.getElementById("chat-host").appendChild(chat);
 }, 1000);
