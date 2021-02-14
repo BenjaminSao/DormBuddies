@@ -7,7 +7,9 @@ app.get('/',function(req, res) {
 });
 app.use('/client',express.static(__dirname + '/client'));
 
-serv.listen(2000);
+const PORT = process.env.PORT ?  parseInt(process.env.PORT) : 2000;
+
+serv.listen(PORT);
 console.log("Server started.");
 
 
