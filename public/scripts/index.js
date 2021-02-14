@@ -169,7 +169,7 @@ navigator.getUserMedia(
 setTimeout(function test(){
   var ifrm = document.createElement('iframe');
   ifrm.setAttribute('id', 'ifrm'); // assign an id
-  ifrm.setAttribute('src', "http://localhost:2000/");
+  ifrm.setAttribute('src', "https://dormbuddy-map.herokuapp.com/");
   ifrm.setAttribute('height', "100%");
   ifrm.setAttribute('width', "100%");
   ifrm.setAttribute("scrolling", "no")
@@ -178,7 +178,7 @@ setTimeout(function test(){
 
   var chat = document.createElement('iframe');
   chat.setAttribute('id', 'chat-frame'); // assign an id
-  chat.setAttribute('src', "http://localhost:2000/");
+  chat.setAttribute('src', "https://dormbuddy-map.herokuapp.com/");
   chat.setAttribute('height', "200%");
   chat.setAttribute('width', "100%");
   chat.setAttribute("scrolling", "no")
