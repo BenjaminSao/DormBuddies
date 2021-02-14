@@ -1,214 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
 
-    <div id="gameDiv" style="display:inline;">
-        <canvas id="ctx" width="500" height="500" style="border:1px solid #000000;"></canvas>
-     
+        <!-- <img id="room" src="https://cdn.discordapp.com/attachments/806948230230966292/810299882991648828/form2.png" alt="" width="500" height="500" > -->
+        <canvas id="ctx" width="500" height="500" style="border: 1px solid #000000;"></canvas>
+ 
         <div id="chat-text" style="width:500px;height:100px;overflow-y:scroll">
             <div>Hello!</div>
         </div>
-     
+        
         <form id="chat-form">
             <input id="chat-input" type="text" style="width:500px"></input>
         </form>
-    </div>
-     
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-        var socket = io();
-     
-     
-        //chat
-        var chatText = document.getElementById('chat-text');
-        var chatInput = document.getElementById('chat-input');
-        var chatForm = document.getElementById('chat-form');
-     
-        socket.on('addToChat',function(data){
-            chatText.innerHTML += '<div>' + data + '</div>';
-        });
-        socket.on('evalAnswer',function(data){
-            console.log(data);
-        });
-     
-     
-        chatForm.onsubmit = function(e){
-            e.preventDefault();
-            if(chatInput.value[0] === '/')
-                socket.emit('evalServer',chatInput.value.slice(1));
-            else
-                socket.emit('sendMsgToServer',chatInput.value);
-            chatInput.value = '';		
-        }
-     
-        //game
-        var ctx = document.getElementById("ctx").getContext("2d");
-        ctx.font = '30px Arial';
-     
-        var Player = function(initPack){
-            var self = {};
-            self.id = initPack.id;
-            self.number = initPack.number;
-            self.x = initPack.x;
-            self.y = initPack.y;
-            self.hp = initPack.hp;
-            self.hpMax = initPack.hpMax;
-            self.score = initPack.score;
-     
-            self.draw = function(){	
-                var hpWidth = 30 * self.hp / self.hpMax;
-                // ctx.drawImage('/img/knight.png', self.x - hpWidth/2,self.y - 40,hpWidth,4);
-                ctx.fillRectself.x - hpWidth/2,self.y - 40,hpWidth,4()
-                ctx.fillText(self.number,self.x,self.y);
-                ctx.fillText(self.score,self.x,self.y-60);
-                console.log("hi")
+         
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            var chatText = document.getElementById('chat-text');
+            var chatInput = document.getElementById('chat-input');
+            var chatForm = document.getElementById('chat-form');
+            var ctx = document.getElementById("ctx").getContext("2d");
+            ctx.font = '30px Arial';
+            // var background = getElementById("room");
+            // ctx.drawImage(background,0,0);   
+         
+            var socket = io();
+         
+            socket.on('newPositions',function(data){
+                ctx.clearRect(0,0,500,500);
+                for(var i = 0 ; i < data.player.length; i++){
+                    ctx.fillText("A",data.player[i].x,data.player[i].y);	
+                }	
+         
+            });
+         
+            socket.on('addToChat',function(data){
+                chatText.innerHTML += '<div>' + data + '</div>';
+            });
+            socket.on('evalAnswer',function(data){
+                console.log(data);
+            });
+         
+         
+            chatForm.onsubmit = function(e){
+                e.preventDefault();
+                if(chatInput.value[0] === '/')
+                    socket.emit('evalServer',chatInput.value.slice(1));
+                else
+                    socket.emit('sendMsgToServer',chatInput.value);
+                chatInput.value = '';		
             }
-
-     
-            Player.list[self.id] = self;
-     
-     
-            return self;
-        }
-        Player.list = {};
-     
-     
-     
-        socket.on('init',function(data){	
-            //{ player : [{id:123,number:'1',x:0,y:0},{id:1,number:'2',x:0,y:0}], bullet: []}
-            for(var i = 0 ; i < data.player.length; i++){
-                new Player(data.player[i]);
-
-                console.log("init")
+         
+            document.onkeydown = function(event){
+                if(event.keyCode === 68)	//d
+                    socket.emit('keyPress',{inputId:'right',state:true});
+                else if(event.keyCode === 83)	//s
+                    socket.emit('keyPress',{inputId:'down',state:true});
+                else if(event.keyCode === 65) //a
+                    socket.emit('keyPress',{inputId:'left',state:true});
+                else if(event.keyCode === 87) // w
+                    socket.emit('keyPress',{inputId:'up',state:true});
+         
             }
-        });
-     
-        socket.on('update',function(data){
-            //{ player : [{id:123,x:0,y:0},{id:1,x:0,y:0}], bullet: []}
-            for(var i = 0 ; i < data.player.length; i++){
-                var pack = data.player[i];
-                var p = Player.list[pack.id];
-                if(p){
-                    if(pack.x !== undefined)
-                        p.x = pack.x;
-                    if(pack.y !== undefined)
-                        p.y = pack.y;
-                    if(pack.hp !== undefined)
-                        p.hp = pack.hp;
-                    if(pack.score !== undefined)
-                        p.score = pack.score;
-                }
+            document.onkeyup = function(event){
+                if(event.keyCode === 68)	//d
+                    socket.emit('keyPress',{inputId:'right',state:false});
+                else if(event.keyCode === 83)	//s
+                    socket.emit('keyPress',{inputId:'down',state:false});
+                else if(event.keyCode === 65) //a
+                    socket.emit('keyPress',{inputId:'left',state:false});
+                else if(event.keyCode === 87) // w
+                    socket.emit('keyPress',{inputId:'up',state:false});
             }
-        });
-     
-        socket.on('remove',function(data){
-            //{player:[12323],bullet:[12323,123123]}
-            for(var i = 0 ; i < data.player.length; i++){
-                delete Player.list[data.player[i]];
-            }
-        });
-     
-        setInterval(function(){
-            ctx.clearRect(0,0,500,500);
-            
-            for(var i in Player.list){
-                Player.list[i].draw();
-            }
-        },40);
-     
-     
-        document.onkeydown = function(event){
-            if(event.keyCode === 68)	//d
-                socket.emit('keyPress',{inputId:'right',state:true});
-            else if(event.keyCode === 83)	//s
-                socket.emit('keyPress',{inputId:'down',state:true});
-            else if(event.keyCode === 65) //a
-                socket.emit('keyPress',{inputId:'left',state:true});
-            else if(event.keyCode === 87) // w
-                socket.emit('keyPress',{inputId:'up',state:true});
-     
-        }
-        document.onkeyup = function(event){
-            if(event.keyCode === 68)	//d
-                socket.emit('keyPress',{inputId:'right',state:false});
-            else if(event.keyCode === 83)	//s
-                socket.emit('keyPress',{inputId:'down',state:false});
-            else if(event.keyCode === 65) //a
-                socket.emit('keyPress',{inputId:'left',state:false});
-            else if(event.keyCode === 87) // w
-                socket.emit('keyPress',{inputId:'up',state:false});
-        }
-     
-        document.onmousedown = function(event){
-            socket.emit('keyPress',{inputId:'attack',state:true});
-        }
-        document.onmouseup = function(event){
-            socket.emit('keyPress',{inputId:'attack',state:false});
-        }
-        document.onmousemove = function(event){
-            var x = -250 + event.clientX - 8;
-            var y = -250 + event.clientY - 8;
-            var angle = Math.atan2(y,x) / Math.PI * 180;
-            socket.emit('keyPress',{inputId:'mouseAngle',state:angle});
-        }
-     
-     
-    </script>
+         
+        </script>
 
 
-<!-- <div id="video_block" width="500" height="500" style="border:1px solid #000000;">
-        <video autoplay="true" id="videoElement">
-	
-            </video></div>
-
-    <script>
-
-
-const myVideo = document.createElement('video')
-myVideo.muted = true
-const peers = {}
-navigator.mediaDevices.getUserMedia({
-  video: true,
-  audio: true
-}).then(stream => {
-  addVideoStream(myVideo, stream)
-
-  myPeer.on('call', call => {
-    call.answer(stream)
-    const video = document.createElement('video')
-    call.on('stream', userVideoStream => {
-      addVideoStream(video, userVideoStream)
-    })
-  })
-
-  socket.on('user-connected', userId => {
-    connectToNewUser(userId, stream)
-  })
-})
-
-socket.on('user-disconnected', userId => {
-  if (peers[userId]) peers[userId].close()
-})
-
-myPeer.on('open', id => {
-  socket.emit('join-room', ROOM_ID, id)
-})
-
-function connectToNewUser(userId, stream) {
-  const call = myPeer.call(userId, stream)
-  const video = document.createElement('video')
-  call.on('stream', userVideoStream => {
-    addVideoStream(video, userVideoStream)
-  })
-  call.on('close', () => {
-    video.remove()
-  })
-
-  peers[userId] = call
-}
-
-function addVideoStream(video, stream) {
-  video.srcObject = stream
-  video.addEventListener('loadedmetadata', () => {
-    video.play()
-  })
-  document.getElementById("video_block").append(video)
-}
-    </script> -->
+    
+</body>
+</html>
