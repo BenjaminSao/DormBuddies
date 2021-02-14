@@ -19,7 +19,14 @@
         <form id="chat-form">
             <input id="chat-input" type="text" style="width:500px"></input>
         </form>
-         
+        <style>
+                #ctx{
+                    background-image:    url(back.png);
+                    background-size:     cover;
+                    background-repeat:   no-repeat;
+                    background-position: center center;
+                }
+                </style>
         <script src="/socket.io/socket.io.js"></script>
         <script>
             var chatText = document.getElementById('chat-text');

@@ -36,7 +36,6 @@ export class Server {
       res.sendFile("index.html", { root: __dirname });
     });
   }
-
   private handleSocketConnection(): void {
     this.io.on("connection", socket => {
       const existingSocket = this.activeSockets.find(

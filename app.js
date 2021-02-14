@@ -1,18 +1,18 @@
 var express = require('express');
 var app = express();
 var serv = require('http').Server(app);
- 
+
 app.get('/',function(req, res) {
 	res.sendFile(__dirname + '/client/index.html');
 });
 app.use('/client',express.static(__dirname + '/client'));
- 
+
 serv.listen(2000);
 console.log("Server started.");
- 
+
 
 var SOCKET_LIST = {};
- 
+
 var Entity = function(){
 	var self = {
 		x:250,
@@ -30,7 +30,7 @@ var Entity = function(){
 	}
 	return self;
 }
- 
+
 var Player = function(id){
 	var self = Entity();
 	self.id = id;
@@ -40,14 +40,14 @@ var Player = function(id){
 	self.pressingUp = false;
 	self.pressingDown = false;
 	self.maxSpd = 10;
- 
+
 	var super_update = self.update;
 	self.update = function(){
 		self.updateSpd();
 		super_update();
 	}
- 
- 
+
+
 	self.updateSpd = function(){
 		if(self.pressingRight)
 			self.spdX = self.maxSpd;
@@ -55,13 +55,13 @@ var Player = function(id){
 			self.spdX = -self.maxSpd;
 		else
 			self.spdX = 0;
- 
+
 		if(self.pressingUp)
 			self.spdY = -self.maxSpd;
 		else if(self.pressingDown)
 			self.spdY = self.maxSpd;
 		else
-			self.spdY = 0;		
+			self.spdY = 0;
 	}
 	Player.list[id] = self;
 	return self;
@@ -96,27 +96,27 @@ Player.update = function(){
             player.x = 481;
         else if(player.y > 500)
             player.y = 500;
-        
+
         pack.push({
             x:player.x,
             y:player.y,
             number:player.number
-        });	
+        });
 	}
 	return pack;
 }
- 
- 
- 
+
+
+
 var DEBUG = true;
- 
+
 var io = require('socket.io')(serv,{});
 io.sockets.on('connection', function(socket){
 	socket.id = Math.random();
 	SOCKET_LIST[socket.id] = socket;
- 
+
 	Player.onConnect(socket);
- 
+
 	socket.on('disconnect',function(){
 		delete SOCKET_LIST[socket.id];
 		Player.onDisconnect(socket);
@@ -127,23 +127,22 @@ io.sockets.on('connection', function(socket){
 			SOCKET_LIST[i].emit('addToChat',playerName + ': ' + data);
 		}
 	});
- 
+
 	socket.on('evalServer',function(data){
 		if(!DEBUG)
 			return;
 		var res = eval(data);
-		socket.emit('evalAnswer',res);		
+		socket.emit('evalAnswer',res);
 	});
 });
- 
+
 setInterval(function(){
 	var pack = {
 		player:Player.update(),
 	}
- 
+
 	for(var i in SOCKET_LIST){
 		var socket = SOCKET_LIST[i];
 		socket.emit('newPositions',pack);
 	}
 },1000/25);
- 
